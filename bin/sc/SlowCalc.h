@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __BIN_PS_PROCESSLIST_H
-#define __BIN_PS_PROCESSLIST_H
+#ifndef __BIN_PRIME_SLOWCALC_H
+#define __BIN_PRIME_SLOWCALC_H
 
 #include <POSIXApplication.h>
 
@@ -26,9 +26,9 @@
  */
 
 /**
- * Output the system process list.
+ * Compute prime numbers using the Sieve of Eratosthenes algorithm
  */
-class ProcessList : public POSIXApplication
+class SlowCalc : public POSIXApplication
 {
   public:
 
@@ -38,7 +38,12 @@ class ProcessList : public POSIXApplication
      * @param argc Argument count
      * @param argv Argument values
      */
-    ProcessList(int argc, char **argv);
+    SlowCalc(int argc, char **argv);
+
+    /**
+     * Destructor
+     */
+    virtual ~SlowCalc();
 
     /**
      * Execute the application.
@@ -46,21 +51,10 @@ class ProcessList : public POSIXApplication
      * @return Result code
      */
     virtual Result exec();
-
-    private:
-    
-    /**
-     * Helper to find the length of a string
-     *
-     * @param String to find the length of
-     *
-     * @return integer length
-     */
-    int len(char* str);
 };
 
 /**
  * @}
  */
 
-#endif /* __BIN_PS_PROCESSLIST_H */
+#endif /* __BIN_PRIME_SLOWCALC_H */

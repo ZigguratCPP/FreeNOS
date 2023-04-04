@@ -19,6 +19,7 @@
 #include <Macros.h>
 #include <stdio.h>
 #include <unistd.h>
+//#include <cstring> cstring doesnt exist in freenos apparently
 #include <ProcessClient.h>
 #include "ProcessList.h"
 
@@ -26,6 +27,7 @@ ProcessList::ProcessList(int argc, char **argv)
     : POSIXApplication(argc, argv)
 {
     parser().setDescription("Output system process list");
+    parser().registerFlag('l', "show_priority", "Show the priority of the processes as well");
 }
 
 ProcessList::Result ProcessList::exec()
@@ -34,7 +36,17 @@ ProcessList::Result ProcessList::exec()
     String out;
 
     // Print header
-    out << "ID  PARENT  USER GROUP STATUS     CMD\r\n";
+    out << "\nID  PARENT  USER GROUP STATUS     ";
+    
+    //for the priority project
+    //print priority header if the flag is set
+    if (arguments().get("show_priority"))
+    {
+        out << "Priority ";
+    }
+    
+    //print end of header
+    out << "CMD";
 
     // Loop processes
     for (ProcessID pid = 0; pid < ProcessClient::MaximumProcesses; pid++)
@@ -47,16 +59,46 @@ ProcessList::Result ProcessList::exec()
             DEBUG("PID " << pid << " state = " << *info.textState);
 
             // Output a line
-            char line[128];
-            snprintf(line, sizeof(line),
-                    "%3d %7d %4d %5d %10s %32s\r\n",
+            const int maxlen = 128;
+            char line1[maxlen];
+            snprintf(line1, maxlen,
+                    "\n%3d %7d %4d %5d %10s ",
                      pid, info.kernelState.parent,
-                     0, 0, *info.textState, *info.command);
-            out << line;
+                     0, 0, *info.textState);
+
+            int lenleft = maxlen - len(line1);
+            char* line2 = new char[lenleft];
+            
+            if (arguments().get("show_priority"))
+            {
+                snprintf(line2, lenleft,
+                        "%8d ",
+                        info.kernelState.priority);
+            }
+            
+            lenleft = lenleft - len(line2);
+            char* line3 = new char[lenleft];
+            snprintf(line3, lenleft,
+                    "%32s",
+                    *info.command);
+    
+            out << line1 << line2 << line3;
         }
     }
-
+    out << "\n";
     // Output the table
     write(1, *out, out.length());
     return Success;
+}
+
+//helper to find the length of a string
+int ProcessList::len(char* str)
+{
+    int len = 0;
+    while (str[len] != 0)
+    {
+        len++;
+    }
+    
+    return len;
 }

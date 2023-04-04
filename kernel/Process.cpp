@@ -31,6 +31,7 @@ Process::Process(ProcessID id, Address entry, bool privileged, const MemoryMap &
     m_waitId        = 0;
     m_waitResult    = 0;
     m_wakeups       = 0;
+    m_priority      = 3; //addition for priority project
     m_entry         = entry;
     m_privileged    = privileged;
     m_memoryContext = ZERO;
@@ -95,6 +96,23 @@ const Timer::Info & Process::getSleepTimer() const
 MemoryContext * Process::getMemoryContext()
 {
     return m_memoryContext;
+}
+
+//addition for priority project
+int Process::getPriority() const
+{
+    return m_priority;
+}
+
+void Process::setPriority(int priority)
+{
+    //bind priority from 1 to 5
+    if (priority < 1)
+        priority = 1;
+    else if (priority > 5)
+        priority = 5;
+
+    m_priority = priority;
 }
 
 bool Process::isPrivileged() const

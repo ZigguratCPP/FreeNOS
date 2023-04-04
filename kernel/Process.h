@@ -140,6 +140,14 @@ class Process
      */
     bool isPrivileged() const;
 
+    /*
+     * Addition for priority project
+     * Get priority
+     * 
+     * @return priority level of the process
+     */
+    int getPriority() const;
+
     /**
      * Compare two processes.
      *
@@ -240,6 +248,12 @@ class Process
      * Set parent process ID.
      */
     void setParent(ProcessID id);
+    
+    /**
+     * addition for priority project
+     * Set the prioriity level of the process
+     */
+    void setPriority(int priority);
 
   protected:
 
@@ -285,6 +299,9 @@ class Process
 
     /** Channel for sending kernel events to the Process */
     MemoryChannel *m_kernelChannel;
+    
+    //Addition for priority assignment:
+    unsigned int m_priority;
 };
 
 /**

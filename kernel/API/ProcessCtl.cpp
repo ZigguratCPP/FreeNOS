@@ -135,6 +135,7 @@ API::Result ProcessCtlHandler(const ProcessID procID,
         info->id    = proc->getID();
         info->state = proc->getState();
         info->parent = proc->getParent();
+        info->priority = proc->getPriority(); //for the priority project. This is top 1 dumbest things i have found in cs
         break;
 
     case WaitPID:
