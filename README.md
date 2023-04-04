@@ -11,5 +11,5 @@ People who contributed to this FreeNOS fork are:
 * Mason Nash (SkeltalFlamingo)
 * Anthony Seward (Aseward1005)
 
-Big link jumpscare:
+Wait Implementation Video:
 https://youtu.be/eoAxVT0eaIU
