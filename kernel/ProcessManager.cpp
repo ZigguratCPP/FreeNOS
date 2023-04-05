@@ -200,6 +200,17 @@ ProcessManager::Result ProcessManager::schedule()
     return Success;
 }
 
+void ProcessManager::setPriority(Process *proc, int priority)
+{
+    //bind priority from 1 to 5
+    if (priority < 1)
+        priority = 1;
+    else if (priority > 5)
+        priority = 5;
+
+    proc->m_priority = priority;
+}
+
 Process * ProcessManager::current()
 {
     return m_current;

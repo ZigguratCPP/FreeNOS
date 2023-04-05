@@ -7,19 +7,13 @@
 /**
  * @brief Wait for a child process to stop or terminate
  *
- * The wait() and waitpid() functions shall obtain status information
- * pertaining to one of the caller's child processes. Various options
- * permit status information to be obtained for child processes that
- * have terminated or stopped. If status information is available for
- * two or more child processes, the order in which their status is
- * reported is unspecified.
+ * The prioritizepid function changes the priority of the process specified by pid to the value specified by priority.
  *
  * @param pid Process ID of child to wait for.
- * @param stat_loc Points to an integer for storing the exit status.
- * @param options Optional flags.
+ * @param priority Priority to set the process to
  *
- * @return Process ID of the child on success or -1 on error
+ * @return 0 if success, 1 if pid not found, 2 if dumb
  */
-extern C pid_t prioritizepid(pid_t pid, int priority, int *stat_loc, int options);
+extern C unsigned int prioritizepid(pid_t pid, int priority);
 
 #endif /* __LIBPOSIX_PRIORITY_H */

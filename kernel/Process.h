@@ -248,12 +248,6 @@ class Process
      * Set parent process ID.
      */
     void setParent(ProcessID id);
-    
-    /**
-     * addition for priority project
-     * Set the prioriity level of the process
-     */
-    void setPriority(int priority);
 
   protected:
 

@@ -4,8 +4,8 @@
 #include <errno.h>
 #include <unistd.h>
 
-#include <sys/types.h>
 #include <sys/priority.h>
+#include <sys/types.h>
 #include "Renice.h"
 
 Renice::Renice(int argc, char **argv)
@@ -24,12 +24,12 @@ Renice::Result Renice::exec()
 {
 	pid_t process_id = atoi(arguments().get("PROCESSID"));
     int priority = atoi(arguments().get("PRIORITY"));
-	int wstatus; //we don't really care about the why it was completed for now, just that it completes
+
 
 	//on failure
-	if (prioritizepid(process_id, priority, &wstatus, 0) == -1)
+	if (prioritizepid(process_id, priority) != 0)
 	{
-		
+		ERROR("failed to renice: " << strerror(errno));
 		return IOError;
 	}
 

@@ -104,17 +104,6 @@ int Process::getPriority() const
     return m_priority;
 }
 
-void Process::setPriority(int priority)
-{
-    //bind priority from 1 to 5
-    if (priority < 1)
-        priority = 1;
-    else if (priority > 5)
-        priority = 5;
-
-    m_priority = priority;
-}
-
 bool Process::isPrivileged() const
 {
     return m_privileged;
