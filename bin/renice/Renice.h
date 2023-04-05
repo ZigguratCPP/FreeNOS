@@ -12,13 +12,14 @@ class Renice : public POSIXApplication
      * @param argc argument count
      * @param argv argument values
      */
-    Renice(int argc, char* argv);
+    Renice(int argc, char ** argv);
 
     /* 
      * Execute the application.
      * @return Result code
      */
     virtual Result exec();
-}
+};
 
 #endif
+
