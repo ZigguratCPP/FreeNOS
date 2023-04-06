@@ -11,5 +11,5 @@ People who contributed to this FreeNOS fork are:
 * Mason Nash (SkeltalFlamingo)
 * Anthony Seward (Aseward1005)
 
-Wait Implementation Video:
-https://youtu.be/eoAxVT0eaIU
+Priority Implementation Video:
+https://youtu.be/f0smF176JdI
