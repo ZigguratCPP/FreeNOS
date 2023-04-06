@@ -202,6 +202,12 @@ ProcessManager::Result ProcessManager::schedule()
 
 void ProcessManager::setPriority(Process *proc, int priority)
 {
+    bool qstuff = (proc->getState() == Process::Ready && (proc != m_idle));
+
+    // take out of queue matching old priority
+    if (qstuff)
+        dequeueProcess(proc, true);
+
     //bind priority from 1 to 5
     if (priority < 1)
         priority = 1;
@@ -209,6 +215,10 @@ void ProcessManager::setPriority(Process *proc, int priority)
         priority = 5;
 
     proc->m_priority = priority;
+
+    // put into queue matching new priority
+    if (qstuff)
+        enqueueProcess(proc);
 }
 
 Process * ProcessManager::current()

@@ -158,6 +158,7 @@ API::Result ProcessCtlHandler(const ProcessID procID,
 
     case SetPriority:
         procs->setPriority(proc, info->priority);
+        procs->schedule();
         break;
 
     case InfoTimer:
